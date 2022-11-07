@@ -10,14 +10,13 @@ var port = process.env.PORT || 8000;
 var index;
 
 var server = http.createServer(function (req, res) {
-  let url = req.url.split("/");
+  //   let url = req.url.split("/");
+  //   console.log(url);
+  //   url[2]
   var optionsList = req.url.match(/^\/pets\/(.*)$/) || [];
   if (optionsList.length > 1) {
     index = optionsList[1];
   }
-
-  console.log(url);
-  //url[2]
 
   if (req.method === "GET" && req.url === "/pets") {
     fs.readFile(petsPath, "utf8", function (err, petsJSON) {
@@ -51,7 +50,6 @@ var server = http.createServer(function (req, res) {
       //   }
       else {
         res.setHeader("Content-Type", "application/json");
-        //res.end(petsJSON);
         res.end(JSON.stringify(JSON.parse(petsJSON)[index]));
       }
     });
